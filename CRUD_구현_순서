@@ -1,0 +1,104 @@
+CRUD #0. H2 데이터베이스, JPA 환경 설정(applecation.properties), domain과 service 패키지를 만든다.
+
+CRUD #1. CourseRepository 만들기(domain 안에 Interface로 CourseRepository.java 생성) -JPA사용 준비
+
+CRUD #2. 테이블 생성(domain 안에 Course.java) - Annotation 작성
+CRUD #2-1. 테이블 생성(위 CURD #2. 작성한 이후에 public class Course 안에 작성)
+--@Getter // Getter를 밑에 작성 안해도 됨!
+  @NoArgsConstructor // 기본생성자를 대신 생성해줍니다.
+  @Entity
+CRUD #2-2. Getter를 lombok으로 바꿔도 됨. @Getter
+
+CRUD#3. CREATE 구현 준비(Week-2Application.java)
+
+CRUD#4. READ(Week-2Application.java)
+
+CRUD#5. Timestamped 만들기. 업데이트 시 시간기록 해야하니까.(Timestamped.java 생성)
+
+CRUD#6. Timestamped 상속받기(Course.java - public class Course extends Timestamped)
+CRUD#6-1. EnableJpaAuditing 추가! @EnableJpaAuditing(Week-2Application.java)
+
+CURD#7. update메소드 추가(Course.java)
+
+CRUD#8. Update 구현을 위한 Service 부분 작성(CourseService.java)
+CRUD#8-1. @RequiredArgsConstructor 작성해주기
+
+CRUD#9. UPDATE(Week02Application.java)
+
+CRUD#10. DELETE(Week02Application.java)
+
+CRUD#11. DTO 만들기(CourseRequestDto.java) - Getter, Setter, RequiredArgsConstructor 추가
+
+CURD#12. Week02Application.java에 DTO 적용하기
+~에서
+Course new_course = new Course("웹개발의 봄, Spring", "임민영");
+courseService.update(1L, new_course);
+~로
+CourseRequestDto requestDto = new CourseRequestDto("웹개발의 봄, Spring", "임민영");
+courseService.update(1L, requestDto);
+
+CRUD#13. CourseService.java에 DTO 적용하기
+~에서
+public Long update(Long id, Course course) {
+        Course course1 = courseRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
+        );
+        course1.update(course);
+        return course1.getId();
+    }
+~로
+public Long update(Long id, CourseRequestDto requestDto) {
+        Course course1 = courseRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 아이디가 존재하지 않습니다.")
+        );
+        course1.update(requestDto);
+        return course1.getId();
+    }
+
+CRUD#14. Course.java에 DTO 적용하기
+~에서
+public void update(Course course) {
+        this.title = course.title;
+        this.tutor = course.tutor;
+    }
+~로
+public void update(CourseRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.tutor = requestDto.getTutor();
+    }
+
+
+
+CRUD#15. CourseContoller.java 생성
+--- GET 생성
+@GetMapping("/api/courses")
+    public List<Course> getCourses() {
+        return courseRepository.findAll();
+    }
+
+--- POST 생성
+@PostMapping("/api/courses")
+    public Course createCourse(@RequestBody CourseRequestDto requestDto) {
+        Course course = new Course(requestDto);
+        return courseRepository.save(course);
+    }
+이렇게 하면 new Course(requestDto)부분에 빨간줄 생김
+--->Course.java에 생성자 추가해줘야 함.
+public Course(CourseRequestDto requestDto){
+        this.title = requestDto.getTitle();
+        this.tutor = requestDto.getTutor();
+    }
+
+--- PUT 생성
+@PutMapping("/api/courses/{id}")
+    // @PathVariable = /api/courses/{id} 의 id가 Long id의 id임을 알려주기 위한 것!!
+    public Long updateCourse(@PathVariable Long id, @RequestBody CourseRequestDto requestDto) {
+        return courseService.update(id, requestDto);
+    }
+
+--- DELETE 생성
+@DeleteMapping("/api/courses/{id}")
+    public Long deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return id;
+    }
