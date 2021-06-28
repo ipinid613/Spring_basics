@@ -1,0 +1,104 @@
+///////////# Memo 소스코드!!! [3~33]
+
+//package com.sparta.week_03.domain;
+//
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//
+//import javax.persistence.*;
+//
+//@NoArgsConstructor // 기본생성자를 만듭니다.
+//@Getter
+//@Entity // 테이블과 연계됨을 스프링에게 알려줍니다.
+//public class Memo extends Timestamped { // 생성,수정 시간을 자동으로 만들어줍니다.
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    private Long id;
+//
+//    @Column(nullable = false)
+//    private String username;
+//
+//    @Column(nullable = false)
+//    private String contents;
+//
+//    public Memo(String username, String contents) {
+//        this.username = username;
+//        this.contents = contents;
+//    }
+//
+//    public Memo(MemoRequestDto requestDto) {
+//        this.username = requestDto.getUsername();
+//        this.contents = requestDto.getContents();
+//    }
+//}
+
+///////////# Timestamped 소스코드!![36~55]
+//package com.sparta.week_03.domain;
+//
+//import org.springframework.data.annotation.CreatedDate;
+//import org.springframework.data.annotation.LastModifiedDate;
+//import org.springframework.data.jpa.com.sparta.week_03.domain.support.AuditingEntityListener;
+//
+//import javax.persistence.EntityListeners;
+//import javax.persistence.MappedSuperclass;
+//import java.time.LocalDateTime;
+//
+//@MappedSuperclass // Entity가 자동으로 컬럼으로 인식합니다.
+//@EntityListeners(AuditingEntityListener.class) // 생성/변경 시간을 자동으로 업데이트합니다.
+//public abstract class Timestamped {
+//
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    @LastModifiedDate
+//    private LocalDateTime modifiedAt;
+//}
+
+///////////# MemoRepository 소스코드!![58~66]
+//package com.sparta.week_03.domain;
+//
+//import org.springframework.data.jpa.repository.JpaRepository;
+//
+//import java.util.List;
+//
+//public interface MemoRepository extends JpaRepository<Memo, Long> {
+//    List<Memo> findAllByOrderByModifiedAtDesc();
+//}
+
+//# MemoService 소스코드!![69~104]
+//package com.sparta.week_03.domain;
+//
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//
+//import javax.persistence.*;
+//
+//@NoArgsConstructor // 기본생성자를 만듭니다.
+//@Getter
+//@Entity // 테이블과 연계됨을 스프링에게 알려줍니다.
+//public class Memo extends Timestamped { // 생성,수정 시간을 자동으로 만들어줍니다.
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    private Long id;
+//
+//    @Column(nullable = false)
+//    private String username;
+//
+//    @Column(nullable = false)
+//    private String contents;
+//
+//    public Memo(String username, String contents) {
+//        this.username = username;
+//        this.contents = contents;
+//    }
+//
+//    public Memo(MemoRequestDto requestDto) {
+//        this.username = requestDto.getUsername();
+//        this.contents = requestDto.getContents();
+//    }
+//
+//    public void update(MemoRequestDto requestDto) { //메소드니까 public이고 반환할게 없으니까 void
+//        this.username = requestDto.getUsername();
+//        this.contents = requestDto.getContents();
+//    }
+//}
