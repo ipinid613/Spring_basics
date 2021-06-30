@@ -190,6 +190,25 @@ textarea.field::placeholder {
     height: 18px;
 }
 
+.footer img.icon-back {
+    cursor: pointer;
+    position: absolute;
+    bottom: 12px;
+    right: 100px;
+    width: 14px;
+    height: 18px;
+}
+
+.footer img.icon-back2 {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 12px;
+    right: 100px;
+    width: 14px;
+    height: 18px;
+}
+
 #cards-box {
     margin-top: 12px;
 }
