@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <script src="js/write.js"></script>
 </head>
@@ -22,6 +25,7 @@
 </div>
 <div class="wrap">
   <div class="header">
+    <img class="write-background-image" src="image/highfive2.png" alt="">
     <h2>Cheers Mate!</h2>
     <p>
       오늘의 응원 메시지를 작성해주세요!
@@ -38,12 +42,12 @@
     </div>
     <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">오늘의 응원</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="오늘의 응원을 작성해주세요." rows="3"></textarea>
+      <textarea class="form-control cheer-input" id="exampleFormControlTextarea1" placeholder="최대 140자 작성 가능합니다." rows="3"></textarea>
     </div>
-  </div>
-  <div class="col text-center">
-    <button type="button" class="btn btn-info" onclick="writePost()">글쓰기</button>
-    <button type="button" class="btn btn-info" onclick="location.href='/index.html'">돌아가기</button>
+    <div class="col text-center">
+      <button type="button" class="btn btn-info" onclick="writePost()">글쓰기</button>
+      <button type="button" class="btn btn-info" onclick="location.href='/index.html'">돌아가기</button>
+    </div>
   </div>
   <!--    <div class="area-write">-->
   <!--        <textarea class="field" placeholder="공유하고 싶은 소식을 입력해주세요" name="contents" id="contents" cols="30"-->

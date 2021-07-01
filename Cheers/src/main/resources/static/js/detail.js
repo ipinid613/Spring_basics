@@ -29,25 +29,32 @@ function getDetailHtml(cheer) {
               <!-- date/username 영역 -->
               <div class="metadata">
               <div class="date">
-              ${cheer.createdAt}
-              </div>
-              <div id="${cheer.id}-username" class="username">
-              ${cheer.username}
+              ${cheer.modifiedAt.split("T")[0]+" | "+cheer.modifiedAt.split("T")[1].split(".")[0]}
               </div>
               </div>
                       <!-- contents 조회/수정 영역-->
               <div class="contents">
-              <div id="${cheer.id}-title" class="text">${cheer.title}</div>
-              <div id="${cheer.id}-contents" class="text">
-              ${cheer.contents}
-              </div>
-              <div id="${cheer.id}-editarea" class="edit">
+              <table class="type02">
+                  <tr>
+                    <th scope="row">작성자</th>
+                    <td id="${cheer.id}-username">${cheer.username}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">제목</th>
+                    <td id="${cheer.id}-title">${cheer.title}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">내용</th>
+                    <td id="${cheer.id}-contents">${cheer.contents}</td>
+                  </tr>
+                  <div id="${cheer.id}-editarea" class="edit">
+                  <p>수정할 내용을 입력해주세요!</p>
               <textarea id="${cheer.id}-textarea" class="te-edit" name="" id="" cols="30" rows="5"></textarea>
               </div>
-              </div>
+                </table>
                       <!-- 버튼 영역-->
         <div class="footer">
-              <img id="${cheer.id}-back" class="icon-back" src="image/send.png" alt="" onclick="history.back()">
+              <img id="${cheer.id}-back" class="icon-back" src="image/send.png" alt="" onclick="window.location.href='index.html'">
               <img id="${cheer.id}-back2" class="icon-back2" src="image/send2.png" alt="" onclick="hideEdits('${cheer.id}')">
               <img id="${cheer.id}-edit" class="icon-start-edit" src="image/edit.png" alt="" onclick="editPost('${cheer.id}')">
               <img id="${cheer.id}-delete" class="icon-delete" src="image/delete.png" alt="" onclick="deleteOne('${cheer.id}')">

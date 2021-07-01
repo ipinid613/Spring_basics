@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.apache.tomcat.jni.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @ToString
@@ -21,14 +22,16 @@ public class CheerDetailResponse {
     private String contents;
     private String username;
     private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     @Builder
-    public CheerDetailResponse (Long id, String title, String username, String contents, LocalDateTime createdAt ) {
+    public CheerDetailResponse (Long id, String title, String username, String contents, LocalDateTime createdAt, LocalDateTime modifiedAt ) {
         this.id = id;
         this.title = title;
         this.username = username;
         this.contents = contents;
         this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
     }
 
     public static CheerDetailResponse of ( Cheer cheer ) {
@@ -38,6 +41,7 @@ public class CheerDetailResponse {
                 .username(cheer.getUsername())
                 .contents(cheer.getContents())
                 .createdAt(cheer.getCreatedAt())
+                .modifiedAt(cheer.getModifiedAt())
                 .build();
     }
 }

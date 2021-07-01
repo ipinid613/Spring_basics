@@ -33,9 +33,10 @@ function getMessages() {
                 let id = cheer.id;
                 let username = cheer.username;
                 let title = cheer.title;
-                let contents = cheer.contents;
-                let modifiedAt = cheer.modifiedAt;
-                addHTML(id, username, title, contents, modifiedAt);
+                let modifiedAt_front = cheer.modifiedAt.split("T")[0];
+                let modifiedAt_back = cheer.modifiedAt.split("T")[1].split(".")[0];
+                let modifiedAt = modifiedAt_front +" | "+ modifiedAt_back
+                addHTML(id, username, title, modifiedAt);
             }
         }
     })
@@ -47,7 +48,7 @@ function moveToDetail(id) {
 }
 
 // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
-function addHTML(id, username, title, contents, modifiedAt) {
+function addHTML(id, username, title, modifiedAt) {
     // 1. HTML 태그를 만듭니다.
     let tempHtml = `<div class="card">
                                 <!-- date/username 영역 -->
@@ -61,20 +62,10 @@ function addHTML(id, username, title, contents, modifiedAt) {
                       </div>
                               <!-- contents 조회/수정 영역-->
                       <div class="contents" onclick=moveToDetail(${id})>
-                      <div id="${id}-title" class="text">${title}</div>
-                      <div id="${id}-contents" class="text">
-                      ${contents}
-                      </div>
-                      <div id="${id}-editarea" class="edit">
-                      <textarea id="${id}-textarea" class="te-edit" name="" id="" cols="30" rows="5"></textarea>
+                      <div id="${id}-title" class="index-text">${title}</div>
                       </div>
                       </div>
-                              <!-- 버튼 영역-->
-                <!--  <div class="footer">
-                      <img id="${id}-edit" class="icon-start-edit" src="image/edit.png" alt="" onclick="editPost('${id}')">
-                      <img id="${id}-delete" class="icon-delete" src="image/delete.png" alt="" onclick="deleteOne('${id}')">
-                      <img id="${id}-submit" class="icon-end-edit" src="image/done.png" alt="" onclick="submitEdit('${id}')">
-                      </div>     -->
+                      </div>
                       </div>`;
     // 2. #cards-box 에 HTML을 붙인다.
     $('#cards-box').append(tempHtml);
